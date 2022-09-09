@@ -1,42 +1,74 @@
 #include <iostream>
 using namespace std;
 
-template <typename T> class vector {
-public:
-	T* ptr;
-	int size;
-
-public:
-	vector(T arr[], int s);
-	void print();
-	T operator[](int index)
-	{
-	    return(*(ptr+index));
-	}
+template <typename T> class vector 
+{
+    private:
+    	T* ptr;
+    	int size=2;
+    	int index=-1;
+    
+    public:
+    	vector()
+    	{
+    	    ptr = new T[size];
+    	}
+    	void allocate_new(T newElement)
+    	{
+    	    T* tempPointer = new T(size);
+    	    
+    	    for(int i=0;i<index;i++)
+    	    {
+    	        tempPointer[i]=ptr[i];
+    	    }
+    	    tempPointer[index]=newElement;
+    	    ptr=tempPointer;
+    	    
+    	}
+    	void push_back(T element)
+    	{
+    	    index++;
+    	    if(index==size)
+    	    {
+    	        size=size*2;
+    	        allocate_new(element);
+    	    }
+    	    else
+    	    {
+    	        ptr[index]=element;
+    	    }
+    	}
+    	T pop_back()
+    	{
+    	    if(index<0)
+    	    {
+    	        cout<<"You can't pop element"<<endl;
+    	    }
+    	    else
+    	    {
+    	        
+    	    }
+    	}
+    	T operator[](int index)
+    	{
+    	    return(*(ptr+index));
+    	}
+    	~vector()
+    	{
+    	    delete ([]ptr);
+    	}
 };
-
-template <typename T> vector<T>::vector(T arr[], int s)
-{
-	ptr = new T[s];
-	size = s;
-	for (int i = 0; i < size; i++)
-		ptr[i] = arr[i];
-}
-
-template <typename T> void vector<T>::print()
-{
-	for (int i = 0; i < size; i++)
-		cout << " " << *(ptr + i);
-	cout << endl;
-}
 
 
 int main()
 {
-	int arr[5] = { 1, 2, 3, 4, 5 };
-	vector<int> a(arr, 5);
-	//cout<<a[2]<<endl;
+	
+	vector<int> a;
+	a.push_back(1);
+	cout<<a[0]<<endl;
+	a.push_back(2);
+	cout<<a[1]<<endl;
+	a.push_back(3);
 	cout<<a[2]<<endl;
-	a.print();
 	return 0;
 }
