@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+template <typename T> class vector {
+public:
+	T* ptr;
+	int size;
+
+public:
+	vector(T arr[], int s);
+	void print();
+	T operator[](int index)
+	{
+	    return(*(ptr+index));
+	}
+};
+
+template <typename T> vector<T>::vector(T arr[], int s)
+{
+	ptr = new T[s];
+	size = s;
+	for (int i = 0; i < size; i++)
+		ptr[i] = arr[i];
+}
+
+template <typename T> void vector<T>::print()
+{
+	for (int i = 0; i < size; i++)
+		cout << " " << *(ptr + i);
+	cout << endl;
+}
+
+
+int main()
+{
+	int arr[5] = { 1, 2, 3, 4, 5 };
+	vector<int> a(arr, 5);
+	//cout<<a[2]<<endl;
+	cout<<a[2]<<endl;
+	a.print();
+	return 0;
+}
